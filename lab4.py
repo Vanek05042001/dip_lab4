@@ -28,22 +28,26 @@ gs = plt.GridSpec(2, 2)
 plt.figure(figsize=(10, 8))
 plt.subplot(gs[0])
 plt.imshow(image1, cmap='gray')
+plt.subplot(gs[2])
+plt.hist(image1.reshape(-1), 256, range)
 plt.show()
 
 # Бинаризация
-threshold = 150
-image = image1
+threshold = 190
+image = gray_image1
 
-ret, thresh1 = cv.threshold(image, threshold, 255, cv.THRESH_BINARY)
+ret, thresh1 = cv.threshold(image, threshold, 255, cv.THRESH_TRUNC)
 
 plt.figure(figsize=(15, 8))
 
 plt.subplot(2, 3, 1)
 plt.imshow(thresh1, 'gray', vmin=0, vmax=255)
-plt.title('BINARY')
+plt.title('Бинаризация')
 plt.xticks([])
 plt.yticks([])
 plt.show()
+
+cv.imwrite('new2.jpg', thresh1)
 
 # Выделение границ
 outImageDepth = cv.CV_16S  
